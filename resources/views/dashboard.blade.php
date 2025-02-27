@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row">
-  <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+  <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
     <div class="card">
       <div class="card-body p-3">
         <div class="row">
@@ -11,7 +11,7 @@
             <div class="numbers">
               <p class="text-sm mb-0 text-capitalize font-weight-bold">Today's Sales</p>
               <h5 class="font-weight-bolder mb-0">
-                {{Helper::getDashboardSales()->get('grand_total')}}
+                {{formatCurrency(0.00)}}
                 <span class="text-success text-sm font-weight-bolder">+55%</span>
               </h5>
             </div>
@@ -26,7 +26,7 @@
     </div>
   </div>
   @foreach(getModelList('products') as $product)
-  <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+  <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
     <div class="card">
       <div class="card-body p-3">
         <div class="row">
@@ -34,7 +34,7 @@
             <div class="numbers">
               <p class="text-sm mb-0 text-capitalize font-weight-bold">{{$product->name}} Sales</p>
               <h5 class="font-weight-bolder mb-0">
-                {{getDashboardSales($product->id) ?? Helper::formatCurrency(0.00)}}
+                {{getDashboardSales($product->id) ?? formatCurrency(0.00)}}
                 <span class="text-success text-sm font-weight-bolder">+3%</span>
               </h5>
             </div>

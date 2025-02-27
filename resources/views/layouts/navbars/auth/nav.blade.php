@@ -14,8 +14,8 @@
                 @csrf
                 <div style="display:block;margin-right:30px" class="form-group mb-0">
                     <select class="form-select form-control" id="select-branch" data-branch="{{auth()->user()->branch_id}}" name="branch_id">
-                        <option value="">{{'Current Branch: '.auth()->user()->branch->name}}</option>    
-                        @foreach(Helper::getModelList('branches') as $branch)
+                        <option value="">{{'Current Branch: '.auth()->user()->branch->name}}</option>
+                        @foreach(getModelList('branches') as $branch)
                         <option value="{{$branch->id}}">{{$branch->name}}</option>
                         @endforeach
                     </select>
@@ -35,11 +35,10 @@
 </nav>
 <!-- End Navbar -->
 <script>
-window.addEventListener('load', function() {
-var branch = $('#select-branch').attr("data-branch");
-$('#select-branch').on('change', function() {
-  $('#change_branch').submit();
-});
-});
-
+    window.addEventListener('load', function() {
+        var branch = $('#select-branch').attr("data-branch");
+        $('#select-branch').on('change', function() {
+            $('#change_branch').submit();
+        });
+    });
 </script>
