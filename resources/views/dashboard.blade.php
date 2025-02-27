@@ -77,13 +77,13 @@
               </tr>
             </thead>
             <tbody>
-              @foreach(Helper::getModelList('products') as $product)
+              @foreach(getModelList('products') as $product)
               <tr>
                 <td style="padding: 25px;">
                   <h6 class="mb-0 text-sm">{{$product->name}}</h6>
                 </td>
                 <td>
-                  <p class="text-sm font-weight-bold mb-0">{{Helper::formatCurrency($product->getTotalSalesByPeriod(now(),now()))}}</p>
+                  <p class="text-sm font-weight-bold mb-0"></p>
                 </td>
                 <td class="align-middle"></td>
               </tr>
@@ -94,7 +94,7 @@
                   <h6 class="mb-0 text-sm">Grand Total</h6>
                 </td>
                 <td>
-                  <p class="text-sm font-weight-bold mb-0 text-right">{{Helper::getDashboardSales()->get('grand_total')}}</p>
+                  <p class="text-sm font-weight-bold mb-0 text-right"></p>
                 </td>
                 <td class="align-middle"></td>
               </tr>
