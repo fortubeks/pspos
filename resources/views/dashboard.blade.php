@@ -115,17 +115,17 @@
       </div>
       <div class="card-body p-3">
         <div class="timeline timeline-one-side">
-          @foreach(Helper::getDashboardSales()->get('purchases') as $purchase)
+
           <div class="timeline-block mb-3">
             <span class="timeline-step">
               <i class="ni ni-cart text-info text-gradient"></i>
             </span>
             <div class="timeline-content">
-              <h6 class="text-dark text-sm font-weight-bold mb-0">{{$purchase->product->name.' @ '.Helper::formatCurrency($purchase->amount)}}</h6>
-              <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">{{$purchase->created_at}}</p>
+              <h6 class="text-dark text-sm font-weight-bold mb-0"></h6>
+              <p class="text-secondary font-weight-bold text-xs mt-1 mb-0"></p>
             </div>
           </div>
-          @endforeach
+
         </div>
       </div>
     </div>
