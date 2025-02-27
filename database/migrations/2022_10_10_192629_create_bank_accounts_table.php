@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('bank_name');
             $table->string('number');
             $table->string('name');
-            $table->string('other_details');
+            $table->decimal('balance', 15, 2);
+            $table->string('other_details')->nullable();
             $table->foreignId('user_id');
             $table->timestamps();
         });

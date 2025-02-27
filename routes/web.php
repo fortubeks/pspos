@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/', [HomeController::class, 'home']);
+	Route::get('/', [HomeController::class, 'home']);
 	Route::get('dashboard', function () {
 		return view('dashboard');
 	})->name('dashboard');
@@ -49,22 +49,22 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('tables');
 	})->name('tables');
 
-    Route::get('virtual-reality', function () {
+	Route::get('virtual-reality', function () {
 		return view('virtual-reality');
 	})->name('virtual-reality');
 
-    Route::get('static-sign-in', function () {
+	Route::get('static-sign-in', function () {
 		return view('static-sign-in');
 	})->name('sign-in');
 
-    Route::get('static-sign-up', function () {
+	Route::get('static-sign-up', function () {
 		return view('static-sign-up');
 	})->name('sign-up');
 
-    Route::get('/logout', [SessionsController::class, 'destroy']);
+	Route::get('/logout', [SessionsController::class, 'destroy']);
 	Route::get('/user-profile', [InfoUserController::class, 'create']);
 	Route::post('/user-profile', [InfoUserController::class, 'store']);
-    Route::get('/login', function () {
+	Route::get('/login', function () {
 		return view('dashboard');
 	})->name('sign-up');
 });
@@ -72,26 +72,27 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 Route::group(['middleware' => 'guest'], function () {
-    Route::get('/register', [RegisterController::class, 'create']);
-    Route::post('/register', [RegisterController::class, 'store']);
-    Route::get('/login', [SessionsController::class, 'create']);
-    Route::post('/session', [SessionsController::class, 'store']);
+	Route::get('/register', [RegisterController::class, 'create']);
+	Route::post('/register', [RegisterController::class, 'store']);
+	Route::get('/login', [SessionsController::class, 'create']);
+	Route::post('/session', [SessionsController::class, 'store']);
 	Route::get('/login/forgot-password', [ResetController::class, 'create']);
 	Route::post('/forgot-password', [ResetController::class, 'sendEmail']);
 	Route::get('/reset-password/{token}', [ResetController::class, 'resetPass'])->name('password.reset');
 	Route::post('/reset-password', [ChangePasswordController::class, 'changePassword'])->name('password.update');
-
 });
 
 Route::get('/login', function () {
-    return view('session/login-session');
+	return view('session/login-session');
 })->name('login');
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('/ajax/get-sales-summary/{date}', 'App\Http\Controllers\SalesController@getSalesSummary');
 	Route::get('/view-daily-sales-breakdown/{date}', 'App\Http\Controllers\SalesController@viewDailySalesBreakdown');
 	Route::post('/settings-change-branch', 'App\Http\Controllers\HelperController@changeBranch');
-    Route::resources([
+	Route::get('/pos', 'App\Http\Controllers\SalesController@pos');
+	Route::get('print-sale/{sale}', 'App\Http\Controllers\SalesController@printSale');
+	Route::resources([
 		'attendants' => App\Http\Controllers\AttendantsController::class,
 		'customers' => App\Http\Controllers\CustomerController::class,
 		'vehicles' => App\Http\Controllers\VehicleController::class,
@@ -111,5 +112,5 @@ Route::group(['middleware' => 'auth'], function () {
 		'employees' => App\Http\Controllers\EmployeeController::class,
 		'subscriptions' => App\Http\Controllers\SubscriptionsController::class,
 		'settings' => App\Http\Controllers\SettingsController::class,
-		]);
+	]);
 });

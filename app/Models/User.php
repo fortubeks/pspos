@@ -45,8 +45,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function branch(){
+    public function branch()
+    {
         return $this->belongsTo('App\Models\Branch');
     }
-    
+
+    public function bankAccounts()
+    {
+        return $this->hasMany('App\Models\BankAccount');
+    }
+
+    public function branches()
+    {
+        return $this->hasMany('App\Models\Branch');
+    }
+
+    public function expenseCategories()
+    {
+        return $this->hasMany('App\Models\ExpenseCategory');
+    }
+
+    public function suppliers()
+    {
+        return $this->hasMany('App\Models\Supplier');
+    }
 }

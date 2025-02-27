@@ -14,18 +14,21 @@ class Pump extends Model
         'user_id',
     ];
 
-    public function tank(){
+    public function tank()
+    {
         return $this->belongsTo('App\Models\Tank');
     }
 
-    public function sales(){
+    public function sales()
+    {
         return $this->hasMany('App\Models\Sale');
     }
 
-    public function lastMeterReading(){
+    public function lastMeterReading()
+    {
         //get last sale on the pump and get cl_me_reading
-        $last_sale = Sale::orderBy('created_at','desc')->where('pump_id',$this->id)->first();
-        if($last_sale){
+        $last_sale = Sale::orderBy('created_at', 'desc')->where('pump_id', $this->id)->first();
+        if ($last_sale) {
             return $last_sale->cl_me_reading;
         }
         return 0.00;

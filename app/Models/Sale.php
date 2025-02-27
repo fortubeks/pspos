@@ -10,24 +10,33 @@ class Sale extends Model
     use HasFactory;
     protected $fillable = [
         'product_id',
-        'discount_amount',
         'qty',
+        'unit_price',
         'total_amount',
-        'pos_amount',
-        'cash_amount',
-        'others_amount',
         'op_me_reading',
         'cl_me_reading',
         'pump_id',
         'attendant_id',
         'note',
         'user_id',
-        'branch_id'
+        'branch_id',
+        'bank_account_id',
+        'payment_method',
     ];
-    public function pump(){
+    public function pump()
+    {
         return $this->belongsTo('App\Models\Pump');
     }
-    public function attendant(){
-        return $this->belongsTo('App\Models\Attendant');
+    public function attendant()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product');
     }
 }

@@ -3,7 +3,7 @@
 @section('content')
 
 <div>
-    
+
 
     <div class="row">
         <div class="col-12">
@@ -22,9 +22,6 @@
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                        ID
-                                    </th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Name
                                     </th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -33,16 +30,19 @@
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                         Number
                                     </th>
+                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        Actions
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
-                              @foreach($bank_accounts as $bank_account)
+                                @foreach($bank_accounts as $bank_account)
                                 <tr>
                                     <td class="ps-4">
-                                        <p class="text-xs font-weight-bold mb-0">{{$bank_account->id}}</p>
+                                        <p class="text-xs font-weight-bold mb-0">{{$bank_account->name}}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">{{$bank_account->name}}</p>
+                                        <p class="text-xs font-weight-bold mb-0">{{$bank_account->bank_name}}</p>
                                     </td>
                                     <td class="text-center">
                                         <p class="text-xs font-weight-bold mb-0">{{$bank_account->number}}</p>
@@ -56,8 +56,8 @@
                                         </span>
                                     </td>
                                 </tr>
-                              @endforeach
-                                
+                                @endforeach
+
                             </tbody>
                         </table>
                     </div>
@@ -66,5 +66,5 @@
         </div>
     </div>
 </div>
- 
+
 @endsection

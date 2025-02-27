@@ -12,6 +12,7 @@ class BankAccount extends Model
         'name',
         'bank_name',
         'number',
+        'balance',
         'other_details',
         'user_id',
     ];

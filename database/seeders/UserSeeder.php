@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             'id' => 1,
-            'email' => 'admin@fortpms.com',
+            'email' => 'admin@admin.com',
             'user_type' => 'SUPER_ADMIN',
             'parent_id' => 1,
             'employee_id' => 1,
@@ -43,39 +43,51 @@ class UserSeeder extends Seeder
         DB::table('settings')->insert([
             'id' => 1,
             'user_id' => 1,
-            'station_name' => 'Fueling Station',
+            'station_name' => 'DOTAFEX',
             'created_at' => now(),
             'updated_at' => now()
         ]);
         DB::table('taxes')->insert([
             'id' => 1,
             'name' => 'VAT',
+            'user_id' => 1,
+            'active' => true,
             'rate' => 7.5,
             'created_at' => now(),
             'updated_at' => now()
         ]);
+        DB::table('bank_accounts')->insert([
+            'id' => 1,
+            'name' => 'Default',
+            'balance' => 0.0,
+            'bank_name' => 'Default',
+            'number' => '0000000000',
+            'user_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
         DB::table('branches')->insert([
             'id' => 1,
-            'name' => 'Main Branch 7 Nine',
-            'address' => 'Ibadan, Nigeria',
+            'name' => 'DOTAFEX',
+            'address' => 'Nigeria',
             'phone' => '08099499444',
             'user_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);
-        DB::table('branches')->insert([
-            'id' => 2,
-            'name' => 'Total',
-            'address' => 'Ibadan, Nigeria',
-            'phone' => '08099499444',
-            'user_id' => 1,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+        // DB::table('branches')->insert([
+        //     'id' => 2,
+        //     'name' => 'Total',
+        //     'address' => 'Ibadan, Nigeria',
+        //     'phone' => '08099499444',
+        //     'user_id' => 1,
+        //     'created_at' => now(),
+        //     'updated_at' => now()
+        // ]);
         DB::table('products')->insert([
             'id' => 1,
             'user_id' => 1,
-            'name' => 'Petrol (PMS)',
+            'name' => 'Cooking Gas (LPG)',
             'created_at' => now(),
             'updated_at' => now()
         ]);
@@ -88,7 +100,7 @@ class UserSeeder extends Seeder
         DB::table('tanks')->insert([
             'id' => 1,
             'user_id' => 1,
-            'name' => 'Fuel Tank 1',
+            'name' => 'LPG Tank 1',
             'product_id' => 1,
             'balance' => 0.00,
             'branch_id' => 1,
@@ -135,7 +147,7 @@ class UserSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
-        
+
         DB::table('suppliers')->insert([
             'id' => 1,
             'user_id' => 1,
