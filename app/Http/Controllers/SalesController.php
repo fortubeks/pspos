@@ -24,7 +24,6 @@ class SalesController extends Controller
      */
     public function index(Request $request)
     {
-        $products = Product::all();
         $date_from = today();
         $date_to = now();
 
@@ -32,9 +31,12 @@ class SalesController extends Controller
             $date_from = $request->date_from;
             $date_to = $request->date_to;
         }
-        $supermarket_sales = $this->getSupermarketSales($date_from, $date_to);
-        $grand_total = $this->getGrandTotalSales($supermarket_sales, $date_from, $date_to);
-        return view('sales.index')->with(compact('products', 'date_from', 'date_to', 'supermarket_sales', 'grand_total'));
+        $sales = Sale::whereDate('sales.created_at', '>=', $date_from)
+            ->whereDate('sales.created_at', '<=', $date_to)
+            ->where('branch_id', auth()->user()->branch_id)
+            ->with('pump', 'bankAccount')
+            ->get();
+        return view('sales.index')->with(compact('sales', 'date_from', 'date_to'));
     }
 
     /**
@@ -87,7 +89,7 @@ class SalesController extends Controller
                 'user_id' => auth()->user()->parent_id,
                 'branch_id' => auth()->user()->branch_id,
                 'bank_account_id' => $request->bank_account,
-                'payment_method' => $request->payment_method,
+                'payment_method' => $request->mode_of_payment,
             ]);
             $sale->created_at = $request->created_at;
             $sale->save();

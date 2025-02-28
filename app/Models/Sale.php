@@ -39,4 +39,12 @@ class Sale extends Model
     {
         return $this->belongsTo('App\Models\Product');
     }
+    public function branch()
+    {
+        return $this->belongsTo('App\Models\Branch');
+    }
+    public function bankAccount()
+    {
+        return $this->belongsTo('App\Models\BankAccount');
+    }
 }

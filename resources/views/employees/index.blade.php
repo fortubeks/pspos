@@ -3,7 +3,7 @@
 @section('content')
 
 <div>
-    
+
 
     <div class="row">
         <div class="col-12">
@@ -50,7 +50,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                              @foreach($employees as $employee)
+                                @foreach($employees as $employee)
                                 <tr>
                                     <td>
                                         <div>
@@ -67,7 +67,7 @@
                                         <p class="text-xs font-weight-bold mb-0">{{$employee->phone}}</p>
                                     </td>
                                     <td>
-                                        <p class="text-xs font-weight-bold mb-0">{{Helper::getModel('branches',$employee->branch_id)->name}}</p>
+                                        <p class="text-xs font-weight-bold mb-0">{{getModel('branches',$employee->branch_id)->name}}</p>
                                     </td>
                                     <td>
                                         <p class="text-secondary text-xs font-weight-bold">{{$employee->created_at->format('d-M-Y')}}</p>
@@ -81,8 +81,8 @@
                                         </span>
                                     </td>
                                 </tr>
-                              @endforeach
-                                
+                                @endforeach
+
                             </tbody>
                         </table>
                     </div>
@@ -91,5 +91,5 @@
         </div>
     </div>
 </div>
- 
+
 @endsection

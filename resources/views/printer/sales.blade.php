@@ -134,7 +134,7 @@
                         <tr>
                             <td style="text-align:left" colspan="">
                                 {{__($sale->product->name)}}
-                                {{$sale->qty}} KG x {{formatCurrency((float)($sale->price), 2, '.', '')}}
+                                {{$sale->qty}} KG x {{formatCurrency((float)($sale->unit_price), 2, '.', '')}}
 
                             </td>
                             <td style="text-align:right;vertical-align:bottom">{{formatCurrency((float)$sale->total_amount, 2, '.', '')}}</td>

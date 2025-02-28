@@ -3,7 +3,7 @@
     <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
     <a class="align-items-center d-flex m-0 navbar-brand text-wrap" href="{{ route('dashboard') }}">
       <img src="{{ asset('assets') }}/img/logo-ct.png" class="navbar-brand-img h-100" alt="...">
-      <span class="ms-3 font-weight-bold">Fueling Station</span>
+      <span class="ms-3 font-weight-bold">Pump Station POS</span>
     </a>
   </div>
   <hr class="horizontal dark mt-0">
@@ -74,6 +74,7 @@
           <span class="nav-link-text ms-1">Sales</span>
         </a>
       </li>
+      @role('admin')
       <li class="nav-item">
         <a class="nav-link {{ (Request::is('purchases') ? 'active' : '') }} " href="{{ url('purchases') }}">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -95,7 +96,6 @@
           <span class="nav-link-text ms-1">Purchases</span>
         </a>
       </li>
-      @can('create', '\App\Models\Product')
       <li class="nav-item">
         <a class="nav-link {{ (Request::is('products') ? 'active' : '') }} " href="{{ url('products') }}">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -159,7 +159,6 @@
           <span class="nav-link-text ms-1">Tanks</span>
         </a>
       </li>
-      @endcan
       <li class="nav-item">
         <a class="nav-link {{ (Request::is('expenses') ? 'active' : '') }} " href="{{ url('expenses') }}">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -286,10 +285,11 @@
           <span class="nav-link-text ms-1">Settings</span>
         </a>
       </li>
+      @endrole
 
 
       <li class="nav-link mb-0">
-        <a href="#" class="btn btn-primary btn-md active px-5 text-white" target="_blank" role="button" aria-pressed="true">
+        <a href="https://wa.me/2348090839412" class="btn btn-primary btn-md active px-5 text-white" target="_blank" role="button" aria-pressed="true">
           Contact Support</a>
       </li>
     </ul>

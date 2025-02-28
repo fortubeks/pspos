@@ -61,7 +61,7 @@
             <h6>Sales</h6>
           </div>
           <div class="col-lg-6 col-5 my-auto text-end">
-            <a href="{{url('/sales/create')}}" class="btn bg-gradient-primary btn-sm mb-0 cursor-pointer" type="button">+&nbsp; Sales</a>
+            <a href="{{url('/pos')}}" class="btn bg-gradient-primary btn-sm mb-0 cursor-pointer" type="button">+&nbsp; Sales</a>
             <i class="fa fa-ellipsis-v text-secondary"></i>
           </div>
         </div>

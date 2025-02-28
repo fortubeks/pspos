@@ -17,8 +17,8 @@ class PurchasesController extends Controller
      */
     public function index()
     {
-        $purchases = Purchase::where('branch_id',auth()->user()->branch_id)->get();
-        return view('purchases/index')->with('purchases',$purchases);
+        $purchases = Purchase::where('branch_id', auth()->user()->branch_id)->get();
+        return view('purchases/index')->with('purchases', $purchases);
     }
 
     /**
@@ -39,10 +39,18 @@ class PurchasesController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'product' => 'required',
+            'tank' => 'required',
+            'qty' => 'required',
+            'amount' => 'required',
+            'supplier' => 'required',
+            'created_at' => 'required',
+        ]);
         $product = Product::find($request->product);
         //create an expense first
         $expense = Expense::create([
-            'description' => 'Purchase of product: '.$product->name,
+            'description' => 'Purchase of product: ' . $product->name,
             'expense_category_id' => 4,
             'amount' => $request->amount,
             'supplier_id' => $request->supplier,
@@ -67,8 +75,8 @@ class PurchasesController extends Controller
         //increase tank balance
         $tank = Tank::find($request->tank);
         $tank->increaseBalance($request->qty);
-        
-        return redirect('/purchases/')->with('success','Purchase was added successfully and tank balance increased');
+
+        return redirect('/purchases/')->with('success', 'Purchase was added successfully and tank balance increased');
     }
 
     /**
@@ -79,7 +87,7 @@ class PurchasesController extends Controller
      */
     public function show(Purchase $purchase)
     {
-        return view('purchases.show')->with('purchase',$purchase);
+        return view('purchases.show')->with('purchase', $purchase);
     }
 
     /**
