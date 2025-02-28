@@ -48,7 +48,7 @@
           </div>
           <div class="card-body px-0 pt-0 pb-2">
             <div class="table-responsive p-0">
-              <table class="table align-items-center justify-content-center mb-0">
+              <table id="sales-table" class="table align-items-center justify-content-center mb-0">
                 <thead>
                   <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date/Time</th>
@@ -143,35 +143,40 @@
       dateFormat: "Y-m-d H:i",
     });
 
-    $('table .show-report').click(function() {
-      var date = $(this).attr("data-date");
-      if (date) {
-        $('#modal-title-notification').html('Sales for ' + date);
-        $('#btn-view-more').attr('data-date', date);
-        url = "{{ url('/ajax/get-sales-summary/') }}/" + date;
-        $.get(url, function(data, status) {
-          console.log(data);
-          let html = '<table class="table"><thead><tr><th class="text-center">Details</th><th></th><th></th>';
-          html += '</tr></thead><tbody>';
-          for (i = 0; i < data.length; i++) {
-            html += '<tr><td style="background-color:bisque" class="text-center font-weight-bold">Pump Name =====  ' + data[i].pump.name + '</td>';
-            html += '<td class="text-center">Opening Meter Reading =====  ' + data[i].op_me_reading + '</td>';
-            html += '<td  class="text-center">Closing Meter Reading =====  ' + data[i].cl_me_reading + '</td></tr>';
-            html += '<tr><td class="text-center">Total Sales (L) =====  ' + data[i].qty + '</td>';
-            html += '<td></td><td class="text-center">Total Amount (NGN) =====  ' + data[i].total_amount + '</td>';
-            html += '</tr><tr><td></td></tr>';
-          }
-          html += '</tbody></table>';
-          $('#sales_container').html(html);
-        });
-      }
+    var sales_table = $('#sales-table').DataTable({
+      lengthChange: false,
+      buttons: ['excel', 'pdf', 'print']
     });
-    $('.btn-view-more').click(function() {
-      var date = $(this).attr("data-date");
-      var url = "{{url('view-daily-sales-breakdown')}}/" + date;
-      if (url) {
-        window.location = url;
-      }
-    });
-  })
+
+    sales_table.buttons().container().appendTo('#sales-table_wrapper .col-md-6:eq(0)');
+
+    // $('#sales-table').DataTable({
+    //   "pagingType": "numbers",
+    //   lengthChange: false,
+    //   buttons: ['excel', 'pdf', 'print'],
+    //   "lengthMenu": [
+    //     [5, 10, 20, 50, -1],
+    //     [5, 10, 20, 50, "All"]
+    //   ],
+    //   "language": {
+    //     "lengthMenu": "Display _MENU_ records per page",
+    //     "zeroRecords": "Nothing found - sorry",
+    //     "info": "Showing page _PAGE_ of _PAGES_",
+    //     "infoEmpty": "No records available",
+    //     "infoFiltered": "(filtered from _MAX_ total records)",
+    //     "search": "Search",
+    //     "paginate": {
+    //       "previous": "Previous",
+    //       "next": "Next"
+    //     }
+    //   },
+    //   "order": [
+    //     [0, "desc"]
+    //   ],
+    //   "columnDefs": [{
+    //     "targets": [6],
+    //     "orderable": false
+    //   }],
+    // });
+  });
 </script>

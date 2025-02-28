@@ -44,6 +44,13 @@
   <link href="{{ asset('assets') }}/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="{{ asset('assets') }}/css/soft-ui-dashboard.css?v=1.0.3" rel="stylesheet" />
+  <link href="{{ asset('assets') }}/js/plugins/datatable/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+  <style>
+    .dataTables_wrapper {
+      padding: 15px !important;
+    }
+  </style>
+
 </head>
 
 <body class="g-sidenav-show  bg-gray-100 {{ (\Request::is('rtl') ? 'rtl' : (Request::is('virtual-reality') ? 'virtual-reality' : '')) }} ">
@@ -91,6 +98,9 @@
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="{{ asset('assets') }}/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
   <script src="{{ asset('assets') }}/js/jquery/dist/jquery.min.js"></script>
+
+  <script src="{{ asset('assets') }}/js/plugins/datatable/js/jquery.dataTables.min.js"></script>
+  <script src="{{ asset('assets') }}/js/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
 </body>
 
 </html>
