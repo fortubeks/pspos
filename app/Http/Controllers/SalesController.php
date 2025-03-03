@@ -91,7 +91,6 @@ class SalesController extends Controller
                 'bank_account_id' => $request->bank_account,
                 'payment_method' => $request->mode_of_payment,
             ]);
-            $sale->created_at = $request->created_at;
             $sale->save();
             //reduce value in tank
             $tank = Tank::find($pump->tank->id);

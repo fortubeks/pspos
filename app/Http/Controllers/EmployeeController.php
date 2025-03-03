@@ -16,8 +16,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::all();
-        return view('employees/index')->with('employees',$employees);
+        $employees = getModelList('employees');
+        return view('employees/index')->with('employees', $employees);
     }
 
     /**
@@ -48,13 +48,13 @@ class EmployeeController extends Controller
             'email' => $request->employee_email,
             'other_details' => $request->other_details,
             'role_id' => $request->role_id,
-            'bank_name'=> $request->bank_name,
-            'bank_account_no'=> $request->bank_account_no,
-            'bank_account_name'=> $request->bank_account_name,
+            'bank_name' => $request->bank_name,
+            'bank_account_no' => $request->bank_account_no,
+            'bank_account_name' => $request->bank_account_name,
             'user_id' => auth()->user()->parent_id,
             'branch_id' => $request->branch_id
         ]);
-        if($request->is_user == 'yes'){
+        if ($request->is_user == 'yes') {
             User::create([
                 'password' => Hash::make($request->password),
                 'email' => $request->email,
@@ -64,7 +64,7 @@ class EmployeeController extends Controller
                 'branch_id' => $request->branch_id,
             ]);
         }
-        return redirect('/employees/')->with('success','Employee added successfully');
+        return redirect('/employees/')->with('success', 'Employee added successfully');
     }
 
     /**
@@ -75,7 +75,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        return view('employees.show')->with('employee',$employee);
+        return view('employees.show')->with('employee', $employee);
     }
 
     /**
@@ -99,11 +99,11 @@ class EmployeeController extends Controller
     public function update(Request $request, Employee $employee)
     {
         $employee->update($request->all());
-        if($request->is_user == 'yes'){
+        if ($request->is_user == 'yes') {
             User::updateOrcreate([
                 'email'   => $request->email,
                 'employee_id'   => $employee->id,
-            ],[
+            ], [
                 'password' => Hash::make($request->password),
                 'email' => $request->email,
                 'employee_id' => $employee->id,
@@ -112,7 +112,7 @@ class EmployeeController extends Controller
                 'branch_id' => $request->branch_id,
             ]);
         }
-        return redirect('/employees')->with('success','Update succesful');
+        return redirect('/employees')->with('success', 'Update succesful');
     }
 
     /**
