@@ -11,12 +11,18 @@ class Pump extends Model
     protected $fillable = [
         'name',
         'tank_id',
+        'product_id',
         'user_id',
     ];
 
     public function tank()
     {
         return $this->belongsTo('App\Models\Tank');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 
     public function sales()

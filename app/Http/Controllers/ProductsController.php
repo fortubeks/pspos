@@ -15,7 +15,7 @@ class ProductsController extends Controller
     public function index()
     {
         $products = auth()->user()->branch->products;
-        return view('products.index')->with('products',$products);
+        return view('products.index')->with('products', $products);
     }
 
     /**
@@ -41,11 +41,11 @@ class ProductsController extends Controller
             'user_id' => auth()->user()->parent_id,
         ]);
 
-        $product->branch()->attach(auth()->user()->branch_id,[
+        $product->branch()->attach(auth()->user()->branch_id, [
             'price' => $request->price,
             'cost' => $request->cost,
         ]);
-        return redirect('/products/')->with('success','Product was added successfully');
+        return redirect('/products/')->with('success', 'Product was added successfully');
     }
 
     /**
@@ -56,7 +56,7 @@ class ProductsController extends Controller
      */
     public function show(Product $product)
     {
-        return view('products.show')->with('product',$product);
+        return view('products.show')->with('product', $product);
     }
 
     /**
@@ -79,9 +79,14 @@ class ProductsController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        auth()->user()->branch->products()->updateExistingPivot($product->id, ['cost' => $request->cost, 
-        'price' => $request->price]);
-        return redirect('products/')->with('success','Successfully updated');
+        auth()->user()->branch->products()->updateExistingPivot($product->id, [
+            'cost' => $request->cost,
+            'price' => $request->price
+        ]);
+        $product->update([
+            'name' => $request->name,
+        ]);
+        return redirect('products/')->with('success', 'Successfully updated');
     }
 
     /**

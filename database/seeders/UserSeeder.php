@@ -112,6 +112,7 @@ class UserSeeder extends Seeder
             'user_id' => 1,
             'name' => 'Pump One',
             'tank_id' => 1,
+            'product_id' => 1,
             'created_at' => now(),
             'updated_at' => now()
         ]);

@@ -48,7 +48,7 @@
                                 <div class="@error('pump')border border-danger rounded-3 @enderror">
                                     <select class="form-select form-control" name="pump[]" id="pump-select" onchange="updateTotalSale()">
                                         @foreach(getModelList('pumps') as $pump)
-                                        <option data-price="{{$pump->tank->product->branch_product()->pivot->price}}"
+                                        <option data-price="{{$pump->product->branch_product()->pivot->price}}"
                                             data-closing-reading="{{$pump->lastMeterReading()}}"
                                             value="{{$pump->id}}">{{$pump->name}}</option>
                                         @endforeach
@@ -60,7 +60,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="text" id="calc-display" name="qty" class="form-control text-end mb-3" oninput="updateTotalSale()">
+                    <input type="text" id="calc-display" name="qty" placeholder="KG" class="form-control text-end mb-3" oninput="updateTotalSale()">
                     <div class="row">
                         <div class="col-md-3">
                             <h3 class="form-control-label mt-3"><i class="fa-solid fa-right-to-bracket"></i>

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('tank_id');
+            $table->foreignId('product_id');
             $table->foreignId('user_id');
             $table->timestamps();
         });

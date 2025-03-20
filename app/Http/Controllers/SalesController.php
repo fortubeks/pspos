@@ -72,13 +72,13 @@ class SalesController extends Controller
         ]);
         try {
             $pump = Pump::find($request->pump)->first();
-            $unit_price = $pump->tank->product->branch_product()->pivot->price;
+            $unit_price = $pump->product->branch_product()->pivot->price;
             $total_amount =  $request->qty * $unit_price;
 
             DB::beginTransaction();
 
             $sale = Sale::create([
-                'product_id' => $pump->tank->product->id,
+                'product_id' => $pump->product->id,
                 'qty' => $request->qty,
                 'unit_price' => $unit_price,
                 'total_amount' => $total_amount,

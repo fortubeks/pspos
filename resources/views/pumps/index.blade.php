@@ -3,7 +3,7 @@
 @section('content')
 
 <div>
-    
+
 
     <div class="row">
         <div class="col-12">
@@ -36,7 +36,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                              @foreach($pumps as $pump)
+                                @foreach($pumps as $pump)
                                 <tr>
                                     <td class="ps-4">
                                         <p class="text-xs font-weight-bold mb-0">{{$pump->id}}</p>
@@ -45,7 +45,7 @@
                                         <p class="text-xs font-weight-bold mb-0">{{$pump->name}}</p>
                                     </td>
                                     <td class="text-center">
-                                        <p class="text-xs font-weight-bold mb-0">{{$pump->tank->product->name}}</p>
+                                        <p class="text-xs font-weight-bold mb-0">{{$pump->product->name}}</p>
                                     </td>
                                     <td class="text-center">
                                         <a href="{{url('pumps/'.$pump->id)}}" class="mx-3" data-bs-toggle="tooltip" data-bs-original-title="Edit pump">
@@ -56,8 +56,8 @@
                                         </span>
                                     </td>
                                 </tr>
-                              @endforeach
-                                
+                                @endforeach
+
                             </tbody>
                         </table>
                     </div>
@@ -66,5 +66,5 @@
         </div>
     </div>
 </div>
- 
+
 @endsection

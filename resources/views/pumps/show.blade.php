@@ -44,11 +44,11 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="user-email" class="form-control-label">{{ __('Tank') }}</label>
+                                <label for="user-email" class="form-control-label">{{ __('Product') }}</label>
                                 <div class="@error('product')border border-danger rounded-3 @enderror">
-                                    <select class="form-select form-control" id="tank" data-tank="{{$pump->tank->id}}" name="tank_id">
+                                    <select class="form-select form-control" id="product" data-product="{{$pump->product_id}}" name="product_id">
                                         @foreach(getModelList('products') as $product)
-                                        <option value="{{$pump->tank->id}}">{{$pump->tank->name}}</option>
+                                        <option value="{{$product->id}}">{{$product->name}}</option>
                                         @endforeach
                                     </select>
                                     @error('product')
@@ -76,8 +76,8 @@
 <script>
     window.addEventListener('load', function() {
 
-        var tank = $('#tank').attr("data-tank");
-        $('#tank option[value=' + tank + ']').attr('selected', 'selected');
+        var product = $('#product').attr("data-product");
+        $('#product option[value=' + product + ']').attr('selected', 'selected');
 
     });
 </script>

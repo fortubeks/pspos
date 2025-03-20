@@ -16,12 +16,12 @@ class PumpsController extends Controller
     {
         $pumps = collect();
         $tanks = auth()->user()->branch->tanks;
-        foreach($tanks as $tank){
-            foreach($tank->pumps as $pump){
+        foreach ($tanks as $tank) {
+            foreach ($tank->pumps as $pump) {
                 $pumps->add($pump);
             }
         }
-        return view('pumps.index')->with('pumps',$pumps);
+        return view('pumps.index')->with('pumps', $pumps);
     }
 
     /**
@@ -45,9 +45,10 @@ class PumpsController extends Controller
         $pump = Pump::create([
             'name' => $request->name,
             'tank_id' => $request->tank,
+            'product_id' => $request->product,
             'user_id' => auth()->user()->parent_id,
         ]);
-        return redirect('/pumps/')->with('success','Pump was added successfully');
+        return redirect('/pumps')->with('success', 'Pump was added successfully');
     }
 
     /**
@@ -58,7 +59,7 @@ class PumpsController extends Controller
      */
     public function show(Pump $pump)
     {
-        return view('pumps.show')->with('pump',$pump);
+        return view('pumps.show')->with('pump', $pump);
     }
 
     /**
@@ -82,7 +83,7 @@ class PumpsController extends Controller
     public function update(Request $request, Pump $pump)
     {
         $pump->update($request->all());
-        return redirect('/pumps')->with('success','Pump was updated successfully');
+        return redirect('/pumps')->with('success', 'Pump was updated successfully');
     }
 
     /**
