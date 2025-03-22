@@ -134,8 +134,13 @@ function getBanksList()
         'FBNQuest Merchant Bank',
         'FSDH Merchant Bank',
         'Rand Merchant Bank',
-        'Nova Merchant Bank'
+        'Nova Merchant Bank',
+        'Opay',
+        'Kuda Bank',
+        'Moniepoint',
+        'VFD Microfinance Bank',
     ];
+    sort($banks);
     return $banks;
 }
 function getDashboardSales($product_id)

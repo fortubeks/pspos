@@ -15,7 +15,7 @@ class BankAccountController extends Controller
     public function index()
     {
         $bank_accounts = BankAccount::all();
-        return view('bank-accounts.index')->with('bank_accounts',$bank_accounts);
+        return view('bank-accounts.index')->with('bank_accounts', $bank_accounts);
     }
 
     /**
@@ -36,14 +36,22 @@ class BankAccountController extends Controller
      */
     public function store(Request $request)
     {
-        $bank_accounts = BankAccount::create([
-            'name' => $request->name,
-            'number' => $request->number,
-            'bank_name' => $request->bank_name,
-            'other_details' => $request->bank_name,
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'number' => 'required|string|max:255',
+            'bank_name' => 'required|string|max:255',
+            'balance' => 'nullable|numeric|min:0',
+        ]);
+
+        $bank_account = BankAccount::create([
+            'name' => $validatedData['name'],
+            'number' => $validatedData['number'],
+            'bank_name' => $validatedData['bank_name'],
+            'balance' => $validatedData['balance'] ?? 0,
+            'other_details' => $validatedData['bank_name'],
             'user_id' => auth()->user()->parent_id,
         ]);
-        return redirect('/bank-accounts/create')->with('success','Bank Account was added successfully');
+        return redirect('/bank-accounts')->with('success', 'Bank Account was added successfully');
     }
 
     /**
@@ -54,7 +62,7 @@ class BankAccountController extends Controller
      */
     public function show(BankAccount $bank_account)
     {
-        return view('bank-accounts.show')->with('bank_account',$bank_account);
+        return view('bank-accounts.show')->with('bank_account', $bank_account);
     }
 
     /**

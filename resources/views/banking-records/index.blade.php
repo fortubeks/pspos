@@ -3,8 +3,6 @@
 @section('content')
 
 <div>
-    
-
     <div class="row">
         <div class="col-12">
             <div class="card mb-4 mx-4">
@@ -13,7 +11,7 @@
                         <div>
                             <h5 class="mb-0">All Records</h5>
                         </div>
-                        
+
                         <a href="{{url('/banking-records/create')}}" class="btn bg-gradient-primary btn-sm mb-0" type="button">+&nbsp; New Record</a>
                         <a href="{{url('/bank-accounts')}}" class="btn bg-gradient-primary btn-sm mb-0" type="button">+&nbsp; Bank Accounts</a>
                     </div>
@@ -41,7 +39,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                              @foreach($banking_records as $banking_record)
+                                @foreach($banking_records as $banking_record)
                                 <tr>
                                     <td class="ps-4">
                                         <p class="text-xs font-weight-bold mb-0">{{$banking_record->created_at->format('d-m-Y')}}</p>
@@ -64,8 +62,8 @@
                                         </span>
                                     </td>
                                 </tr>
-                              @endforeach
-                                
+                                @endforeach
+
                             </tbody>
                         </table>
                     </div>
@@ -74,5 +72,5 @@
         </div>
     </div>
 </div>
- 
+
 @endsection
