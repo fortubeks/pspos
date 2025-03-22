@@ -41,16 +41,16 @@ function getModelList($model)
         $model_list = auth()->user()->branch->tanks;
     }
     if ($model == 'expense-categories') {
-        $model_list = auth()->user()->expenseCategories;
+        $model_list = auth()->user()->parent->expenseCategories;
     }
     if ($model == 'bank-accounts') {
-        $model_list = auth()->user()->bankAccounts;
+        $model_list = auth()->user()->parent->bankAccounts;
     }
     if ($model == 'branches') {
-        $model_list = auth()->user()->branches;
+        $model_list = auth()->user()->parent->branches;
     }
     if ($model == 'suppliers') {
-        $model_list = auth()->user()->suppliers;
+        $model_list = auth()->user()->parent->suppliers;
     }
     return $model_list;
 }

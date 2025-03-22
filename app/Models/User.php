@@ -69,4 +69,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Supplier');
     }
+
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\User', 'parent_id');
+    }
 }
