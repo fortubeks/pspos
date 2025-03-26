@@ -22,6 +22,7 @@ class Sale extends Model
         'branch_id',
         'bank_account_id',
         'payment_method',
+        'created_at',
     ];
     public function pump()
     {

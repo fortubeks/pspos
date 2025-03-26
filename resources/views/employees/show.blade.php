@@ -218,6 +218,12 @@
                                 <input class="form-check-input" type="checkbox" @if($employee->user) {{__('checked')}} @endif value="yes" name="is_user" id="is_user" >
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="user-email" class="form-control-label">{{ __('Is Active') }}</label>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" @if($employee->user->is_active == 1) {{__('checked')}} @endif value="yes" name="is_active" id="is_active" >
+                            </div>
+                        </div>
                     </div>
 
                     <div class="col-md-3 user-hide">
@@ -226,9 +232,8 @@
                             <div class="@error('product')border border-danger rounded-3 @enderror">
                                 <select class="form-select form-control" id="user_type" data-user-type="{{$employee->user->user_type ?? 'u'}}" name="user_type">
                                     <option value="">--Select--</option>
-                                    <option value="SUPER_ADMIN">Super Admin</option>
-                                    <option value="ADMIN">Admin</option>
                                     <option value="MANAGER">Manager</option>
+                                    <option value="ATTENDANT">Pump Attendant</option>
                                 </select>
                                 @error('product')
                                 <p class="text-danger text-xs mt-2">{{ $message }}</p>
@@ -251,7 +256,7 @@
                         <div class="form-group">
                             <label for="user-email" class="form-control-label">{{ __('Password') }}</label>
                             <div class="@error('cost')border border-danger rounded-3 @enderror">
-                                <input class="form-control" type="text" placeholder="Password" name="password">
+                                <input class="form-control" type="password" placeholder="Password" name="password">
                                 @error('cost')
                                 <p class="text-danger text-xs mt-2">{{ $message }}</p>
                                 @enderror

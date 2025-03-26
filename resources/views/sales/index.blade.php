@@ -82,9 +82,11 @@
                       <p class="text-sm font-weight-bold mb-0">{{$sale->bankAccount->name}}</p>
                     </td>
                     <td class="align-middle">
-                      <button class="btn btn-link text-secondary mb-0">
-                        <i class="fa fa-ellipsis-v text-xs"></i>
-                      </button>
+                      @if($user->user_type == 'SUPER_ADMIN' || $user->user_type == 'MANAGER')
+                      <a class="mx-3 delete-sale" href="javascript:void(0);" data-sale-id="{{$sale->id}}" data-bs-toggle="modal" data-bs-target="#deleteOrderModal" title="Delete Sale">
+                        <i class="cursor-pointer fas fa-trash text-secondary"></i>
+                      </a>
+                      @endif
                     </td>
                   </tr>
                   @endforeach
@@ -97,7 +99,27 @@
     </div>
   </div>
 </main>
-
+<div class="modal fade" id="deleteOrderModal" tabindex="-1" aria-labelledby="deleteBarOrderModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteCartModalLabel">Confirm Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this sale?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <form method="POST" id="sale-form" action="{{ url('sales/') }}">
+          @csrf @method('delete')
+          <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="modal fade" id="modal-notification" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
   <div class="modal-dialog modal-danger modal-dialog-centered modal-" style="max-width: 90%;" role="document">
     <div class="modal-content">
@@ -145,38 +167,41 @@
 
     var sales_table = $('#sales-table').DataTable({
       lengthChange: false,
-      buttons: ['excel', 'pdf', 'print']
+      buttons: [{
+          extend: 'excel',
+          title: 'Sales Dotafex'
+        },
+        {
+          extend: 'pdf',
+          title: 'Sales Dotafex'
+        },
+        {
+          extend: 'print',
+          title: 'Sales Dotafex',
+          customize: function(win) {
+            $(win.document.body)
+              .css('font-size', '10pt')
+              .prepend('<p style="text-align: left;">Total Sales:{{formatCurrency($totalSalesAmount)}}</p><p style="text-align: left;">Total KG:{{$totalKg}}</p><p style="text-align: left;">Date:{{$date_from." to ".$date_to}}</p>'); // Add title to the print view
+          }
+        }
+      ],
+      "order": [
+        [0, "desc"]
+      ],
     });
 
     sales_table.buttons().container().appendTo('#sales-table_wrapper .col-md-6:eq(0)');
 
-    // $('#sales-table').DataTable({
-    //   "pagingType": "numbers",
-    //   lengthChange: false,
-    //   buttons: ['excel', 'pdf', 'print'],
-    //   "lengthMenu": [
-    //     [5, 10, 20, 50, -1],
-    //     [5, 10, 20, 50, "All"]
-    //   ],
-    //   "language": {
-    //     "lengthMenu": "Display _MENU_ records per page",
-    //     "zeroRecords": "Nothing found - sorry",
-    //     "info": "Showing page _PAGE_ of _PAGES_",
-    //     "infoEmpty": "No records available",
-    //     "infoFiltered": "(filtered from _MAX_ total records)",
-    //     "search": "Search",
-    //     "paginate": {
-    //       "previous": "Previous",
-    //       "next": "Next"
-    //     }
-    //   },
-    //   "order": [
-    //     [0, "desc"]
-    //   ],
-    //   "columnDefs": [{
-    //     "targets": [6],
-    //     "orderable": false
-    //   }],
-    // });
+    $(".delete-sale").click(function(event) {
+      var saleId = $(this).data('sale-id');
+      var currentUrl = "{{ url('sales') }}";
+
+      // Construct the new URL with appended bar order ID
+      var newUrl = currentUrl + "/" + saleId;
+      // Update the form action attribute with the new URL
+      $("#sale-form").attr("action", newUrl);
+
+    });
+
   });
 </script>

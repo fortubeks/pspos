@@ -24,6 +24,7 @@ class User extends Authenticatable
         'user_type',
         'parent_id',
         'branch_id',
+        'is_active',
     ];
 
     /**
@@ -73,5 +74,20 @@ class User extends Authenticatable
     public function parent()
     {
         return $this->belongsTo('App\Models\User', 'parent_id');
+    }
+
+    public function getActiveStatus()
+    {
+        return $this->is_active == 1 ? 'Active' : 'Inactive';
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
+
+    public function sales()
+    {
+        return $this->hasMany(Sale::class);
     }
 }

@@ -64,7 +64,7 @@ class EmployeeController extends Controller
                 'branch_id' => $request->branch_id,
             ]);
         }
-        return redirect('/employees/')->with('success', 'Employee added successfully');
+        return redirect('/employees')->with('success', 'Employee added successfully');
     }
 
     /**
@@ -104,13 +104,18 @@ class EmployeeController extends Controller
                 'email'   => $request->email,
                 'employee_id'   => $employee->id,
             ], [
-                'password' => Hash::make($request->password),
                 'email' => $request->email,
                 'employee_id' => $employee->id,
                 'user_type' => $request->user_type,
                 'parent_id' => auth()->user()->parent_id,
                 'branch_id' => $request->branch_id,
+                'is_active' => $request->is_active == 'yes' ? 1 : 0,
             ]);
+            if ($request->password) {
+                User::where('employee_id', $employee->id)->update([
+                    'password' => Hash::make($request->password),
+                ]);
+            }
         }
         return redirect('/employees')->with('success', 'Update succesful');
     }
@@ -123,6 +128,12 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        if ($employee->user) {
+            if ($employee->user && $employee->user->sales()->exists()) {
+                return redirect('/employees')->with('error', 'Employee has sales records. Delete the records first');
+            }
+        }
+        $employee->delete();
+        return redirect('/employees')->with('success', 'Employee deleted');
     }
 }

@@ -26,17 +26,20 @@ class SalesController extends Controller
     {
         $date_from = today();
         $date_to = now();
+        $user = auth()->user();
 
         if ($request->has('date_from')) {
             $date_from = $request->date_from;
             $date_to = $request->date_to;
         }
-        $sales = Sale::whereDate('sales.created_at', '>=', $date_from)
+        $query = Sale::whereDate('sales.created_at', '>=', $date_from)
             ->whereDate('sales.created_at', '<=', $date_to)
             ->where('branch_id', auth()->user()->branch_id)
-            ->with('pump', 'bankAccount')
-            ->get();
-        return view('sales.index')->with(compact('sales', 'date_from', 'date_to'));
+            ->with('pump', 'bankAccount');
+        $sales = $query->get();
+        $totalSalesAmount = $query->sum('total_amount');
+        $totalKg = $query->sum('qty');
+        return view('sales.index')->with(compact('sales', 'date_from', 'date_to', 'user', 'totalSalesAmount', 'totalKg'));
     }
 
     /**
@@ -91,6 +94,9 @@ class SalesController extends Controller
                 'bank_account_id' => $request->bank_account,
                 'payment_method' => $request->mode_of_payment,
             ]);
+            $date = new Carbon($request->created_at);
+            $date->setTimeFromTimeString(now()->toTimeString());
+            $sale->created_at = $date;
             $sale->save();
             //reduce value in tank
             $tank = Tank::find($pump->tank->id);
@@ -160,7 +166,22 @@ class SalesController extends Controller
      */
     public function destroy(Sale $sale)
     {
-        //
+        //return kg to tank
+        //add to closing meter reading of the last sale
+        //delete sale
+        try {
+            DB::beginTransaction();
+            $tank = Tank::find($sale->pump->tank->id);
+            $tank->increaseBalance($sale->qty);
+            $sale->delete();
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            logger($e);
+            return redirect('/sales')->withErrors(['error' => 'An error occurred while deleting the sale: ' . $e->getMessage()]);
+        }
+        return redirect('/sales')->with('success', 'Sale was deleted successfully');
     }
 
     public function getSupermarketSales($date_from, $date_to)
